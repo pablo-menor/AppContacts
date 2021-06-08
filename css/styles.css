@@ -62,8 +62,9 @@ body{
     margin-bottom: 6%;
     font-size: 20px;
 }
-
-
+img:hover{
+    cursor: pointer;
+}
 
 /**************RESPONSIVE***************/
 /*@media(max-width = */
