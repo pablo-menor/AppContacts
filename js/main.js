@@ -1,4 +1,5 @@
 window.addEventListener('load', () =>{
+
     document.querySelector('#form').addEventListener('submit', () => { 
        let userName = document.querySelector("#contact-name").value;
        let userPhone = document.querySelector("#contact-phone").value;
@@ -25,6 +26,9 @@ window.addEventListener('load', () =>{
         phone.setAttribute('class', 'userPhone');
         let email = document.createElement("p");
         email.setAttribute('class', 'userEmail');
+        let icon = document.createElement('img');
+        icon.setAttribute('src', './img/delete_black_24dp.svg');
+        icon.setAttribute('id', 'img');
         let userContainer = document.createElement("div");
         name.innerHTML = user.name;
         phone.innerHTML = user.phone;
@@ -32,10 +36,24 @@ window.addEventListener('load', () =>{
         userContainer.append(name);
         userContainer.append(phone);
         userContainer.append(email);
+        userContainer.append(icon);
+        
         contacts.append(userContainer);
-    
-
+        
     }
+
+    document.querySelector('#img').addEventListener('mouseover', () => {
+        document.querySelector('.userName').style.textDecoration = "line-through";
+        document.querySelector('.userPhone').style.textDecoration = "line-through";
+        document.querySelector('.userEmail').style.textDecoration = "line-through";
+
+    })
+    document.querySelector('#img').addEventListener('mouseleave', () => {
+        document.querySelector('.userName').style.textDecoration = "none";
+        document.querySelector('.userPhone').style.textDecoration = "none";
+        document.querySelector('.userEmail').style.textDecoration = "none";
+
+    })
 
     
 
