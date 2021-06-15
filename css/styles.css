@@ -54,6 +54,9 @@ body{
     background-color: rgb(15, 134, 21);
     margin-bottom: 17%;
 }
+#submit:hover{
+    cursor: pointer;
+}
 
 .container #contacts > div{
     display: flex;
@@ -64,7 +67,67 @@ body{
 }
 img:hover{
     cursor: pointer;
+  
 }
 
 /**************RESPONSIVE***************/
-/*@media(max-width = */
+
+@media(max-width : 1675px){
+    .container{
+        width: 40%;
+    }
+}
+@media(max-width : 1459px){
+    .container{
+        width: 47%;
+    }
+}
+@media(max-width : 1209px){
+    .container{
+        width: 55%;
+    }
+}
+@media(max-width : 1005px){
+    .container{
+        width: 60%;
+    }
+    .container #contacts > div{
+        font-size: 18px;
+    }
+}
+@media(max-width : 910px){
+    .container{
+        width: 70%;
+    }
+    .container #contacts > div{
+        font-size: 17px;
+    }
+}
+@media(max-width : 814px){
+    .container{
+        width: 80%;
+    }
+}
+@media(max-width : 640px){
+    #submit{
+        width: 60%;
+    }
+}
+
+@media(max-width : 588px){
+    .container  #contacts > div{
+        display: flex;
+        flex-direction:column;
+        justify-content: space-between;
+        margin-bottom: 6%;
+        font-size: 16px;
+    } 
+    #submit{
+        width: 75%;
+    }
+    img{
+        margin-top: 4%;
+        width: 20px;
+        align-self: center;
+    }
+}
