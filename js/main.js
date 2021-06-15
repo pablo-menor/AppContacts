@@ -1,5 +1,8 @@
 window.addEventListener('load', () =>{
 
+       localStorage.setItem("index", 0);
+       var index = 0;
+
     document.querySelector('#form').addEventListener('submit', () => { 
        let userName = document.querySelector("#contact-name").value;
        let userPhone = document.querySelector("#contact-phone").value;
@@ -12,49 +15,68 @@ window.addEventListener('load', () =>{
            phone: userPhone,
            email: userEmail
        }
-     
+       if(userName || userPhone || userEmail != ""){
        localStorage.setItem(user.id, JSON.stringify(user));
+        }
     })
     const contacts = document.querySelector("#contacts");
 
     for (let i = 0; i < localStorage.length; i++) { 
         let key = localStorage.key(i);
-        let user = JSON.parse(localStorage[key]);
-        let name = document.createElement("p");
-        name.setAttribute('class', 'userName');
-        let phone = document.createElement("p");
-        phone.setAttribute('class', 'userPhone');
-        let email = document.createElement("p");
-        email.setAttribute('class', 'userEmail');
-        let icon = document.createElement('img');
-        icon.setAttribute('src', './img/delete_black_24dp.svg');
-        icon.setAttribute('id', 'img');
-        let userContainer = document.createElement("div");
-        name.innerHTML = user.name;
-        phone.innerHTML = user.phone;
-        email.innerHTML = user.email,
-        userContainer.append(name);
-        userContainer.append(phone);
-        userContainer.append(email);
-        userContainer.append(icon);
-        
-        contacts.append(userContainer);
+            if(key != 'index'){
+                index++;
+                let user = JSON.parse(localStorage[key]);
+                let name = document.createElement("p");
+                name.setAttribute('class', `userName${index}`);
+                let phone = document.createElement("p");
+                phone.setAttribute('class', `userPhone${index}`);
+                let email = document.createElement("p");
+                email.setAttribute('class', `userEmail${index}`);
+                let icon = document.createElement('img');
+                icon.setAttribute('src', './img/delete_black_24dp.svg');
+                icon.setAttribute('class', `img ${index}`);
+                let userContainer = document.createElement("div");
+                name.innerHTML = user.name;
+                phone.innerHTML = user.phone;
+                email.innerHTML = user.email,
+                userContainer.append(name);
+                userContainer.append(phone);
+                userContainer.append(email);
+                userContainer.append(icon); 
+            
+                userContainer.setAttribute('class', `container${index}`);
+                userContainer.setAttribute('id', user.id);
+                contacts.append(userContainer);
+                localStorage.setItem("index", index);
+        }
+       
         
     }
 
-    document.querySelector('#img').addEventListener('mouseover', () => {
-        document.querySelector('.userName').style.textDecoration = "line-through";
-        document.querySelector('.userPhone').style.textDecoration = "line-through";
-        document.querySelector('.userEmail').style.textDecoration = "line-through";
+    let icons = document.querySelectorAll('.img');
+    icons.forEach(icon=>{
+         icon.addEventListener('mouseover', () => {
+             let classs = icon.getAttribute('class').slice(4);
 
-    })
-    document.querySelector('#img').addEventListener('mouseleave', () => {
-        document.querySelector('.userName').style.textDecoration = "none";
-        document.querySelector('.userPhone').style.textDecoration = "none";
-        document.querySelector('.userEmail').style.textDecoration = "none";
+             document.querySelector(`.userName${classs}`).style.textDecoration = "line-through";
+             document.querySelector(`.userPhone${classs}`).style.textDecoration = "line-through";
+             document.querySelector(`.userEmail${classs}`).style.textDecoration = "line-through";
+     
+         })
+         icon.addEventListener('mouseleave', () => {
+            let classs = icon.getAttribute('class').slice(4);
+             document.querySelector(`.userName${classs}`).style.textDecoration = "none";
+             document.querySelector(`.userPhone${classs}`).style.textDecoration = "none";
+             document.querySelector(`.userEmail${classs}`).style.textDecoration = "none";
+     
+         })
 
-    })
+         icon.addEventListener('click', () => {
+            let classs = icon.getAttribute('class').slice(4);
+            let id = document.querySelector(`.container${classs}`).getAttribute('id');
+            localStorage.removeItem(id);
+            window.location.reload();
+         })
+     })  
+});
 
-    
-
-})
